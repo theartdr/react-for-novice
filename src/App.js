@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import styled from 'styled-components'
+const Input = styled.input.attrs({ required: true })`
+background-color: tomato;
+`;
+export default function App() {
+  const [todo, setTodo] = useState('');
+  const [lists, setLists] = useState([]);
+  let nextId = 0;
 
-function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>To Do List</h1>
+        <Input 
+          value={todo}
+          onChange={e=>setTodo(e.target.value)}
+          placeholder='Things to do'
+        />
+        <button onClick={() => {
+          setLists([
+            { id: nextId++, todo: todo },
+            ...lists,
+          ]);
+        }}>Add</button>
+        <ul>
+          {lists.map(list => (
+            <li key={list.id}>{list.todo}{''}
+            <button onClick={() => {
+              setLists(
+                lists.filter(a =>
+                  a.id !== list.id
+                )
+              )
+            }}>
+              Delete
+            </button>
+            </li>
+          ))}
+        </ul>
       </header>
     </div>
   );
-}
-
-export default App;
+};
