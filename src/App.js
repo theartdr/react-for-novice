@@ -9,10 +9,16 @@ export default function App() {
   const [lists, setLists] = useState([]);
   let nextId = 0;
 
+  const Title = styled.h1`
+    color: ${(props) => props.theme.textColor};`;
+
+  const Wrapper = styled.div`
+  backgroundColor: ${(props) => props.theme.backgroundColor}`;
+    
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>To Do List</h1>
+      <Wrapper>
+        <Title>To Do List</Title>
         <Input 
           value={todo}
           onChange={e=>setTodo(e.target.value)}
@@ -39,7 +45,7 @@ export default function App() {
             </li>
           ))}
         </ul>
-      </header>
+      </Wrapper>
     </div>
   );
 };
