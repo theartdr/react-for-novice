@@ -1,51 +1,67 @@
-import { useState } from 'react';
-import './App.css';
-import styled from 'styled-components'
-const Input = styled.input.attrs({ required: true })`
-background-color: tomato;
+import styled, { keyframes } from "styled-components";
+
+const Wrapper = styled.div`
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.theme.backgroundColor};
 `;
-export default function App() {
-  const [todo, setTodo] = useState('');
-  const [lists, setLists] = useState([]);
-  let nextId = 0;
 
-  const Title = styled.h1`
-    color: ${(props) => props.theme.textColor};`;
+const Title = styled.h1`
+  color: ${(props) => props.theme.textColor};
+`;
 
-  const Wrapper = styled.div`
-  backgroundColor: ${(props) => props.theme.backgroundColor}`;
-    
+const rotationAnimation = keyframes`
+  0% {
+    transform: rotate(0deg);
+    border-radius: 0px;
+  }
+  50% {
+    border-radius: 100px;
+  }
+  100% {
+    transform: rotate(360deg);
+    border-radius: 0px;
+  }
+`;
+const Emoji = styled.span`
+  font-size: 36px;
+`
+
+const Box = styled.div`
+  display: flex;
+  height: 200px;
+  width: 200px;
+  justify-content: center;
+  align-items: center;
+  animation: ${rotationAnimation} 1s linear infinite;
+  background-color: ${(props)=>props.bgColor};
+  ${Emoji}:hover {
+    font-size: 100px;
+  }
+`;
+
+const Circle = styled(Box)`
+  border-radius: 50%;
+`;
+
+const Input = styled.input.attrs({ required: true })`
+  background-color: skyblue;
+`;
+
+function App() {
   return (
-    <div className="App">
-      <Wrapper>
-        <Title>To Do List</Title>
-        <Input 
-          value={todo}
-          onChange={e=>setTodo(e.target.value)}
-          placeholder='Things to do'
-        />
-        <button onClick={() => {
-          setLists([
-            { id: nextId++, todo: todo },
-            ...lists,
-          ]);
-        }}>Add</button>
-        <ul>
-          {lists.map(list => (
-            <li key={list.id}>{list.todo}{''}
-            <button onClick={() => {
-              setLists(
-                lists.filter(a =>
-                  a.id !== list.id
-                )
-              )
-            }}>
-              Delete
-            </button>
-            </li>
-          ))}
-        </ul>
-      </Wrapper>
-    </div>
+    <Wrapper as ="header">
+      <Title>Hello</Title>
+      <Box bgColor="teal">
+        <Emoji>🤯</Emoji>
+      </Box>
+      <Circle bgColor="tomato" />
+      <Input />
+    </Wrapper>
   );
-};
+}
+
+export default App;
