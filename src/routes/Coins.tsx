@@ -27,6 +27,7 @@ const Img = styled.img`
   height: 35px;
   margin-right: 10px;
 `
+
 interface CoinInterface {
   id: string,
   name: string,
@@ -52,10 +53,8 @@ function Coins() {
       <CoinsList>
         {coins.map((coin) => (
           <Coin key={coin.id}>
-            <Link to={{
-              pathname: `/${coin.id}`,
-              state: { name: coin.name },  
-            }}>
+            <Link to={`/${coin.id}`}
+              state= { coin.name } >
               <Img
                 src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
               />
